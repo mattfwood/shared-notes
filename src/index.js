@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import base from './base';
+import Note from './components/Note';
 import registerServiceWorker from './registerServiceWorker';
 
-import LoginPage from './Views/LoginPage';
+import LoginPage from './views/LoginPage';
 
 class Root extends Component {
   state = {
@@ -35,6 +36,12 @@ class Root extends Component {
             path="/"
             render={props => (
               <App user={this.state.user} logout={this.logout} />
+            )}
+          />
+          <Route 
+            path="/note/:id"
+            render={props => (
+              <Note {...props} />
             )}
           />
           <Route

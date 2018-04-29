@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import base from './base';
 import './App.css';
-import { Redirect } from 'react-router-dom';
-
-import Note from './components/Note';
-const Puid = require('puid');
 
 class App extends Component {
   state = {
-    notes: [],
+    notes: []
   };
 
   componentDidMount() {
     // if (this.props.user) {
-    this.ref = base.syncState(`/notes`, {
+    this.ref = base.syncState('/notes', {
       context: this,
-      state: 'notes',
+      state: 'notes'
     });
     // } else {
     //   <Redirect to={{
@@ -24,13 +21,6 @@ class App extends Component {
     //   }}/>
     // }
   }
-
-  handleChange = (input, key) => {
-    console.log('input changed');
-    const { notes } = this.state;
-    notes[key].text = input.target.value;
-    this.setState({ notes });
-  };
 
   createNote = () => {
     // const notes = this.state.notes;
@@ -43,8 +33,8 @@ class App extends Component {
     base
       .push('notes', {
         data: {
-          text: '',
-        },
+          text: ''
+        }
       })
       .then(note => {
         const key = note.key;
@@ -62,22 +52,27 @@ class App extends Component {
         <div className="row">
           <div className="col">
             <div className="d-flex flex-row-reverse">
-              <button className="btn btn-primary mt-5 mb-5" onClick={() => this.createNote()}>New Note</button>
+              <button
+                className="btn btn-primary mt-5 mb-5"
+                onClick={() => this.createNote()}
+              >
+                New Note
+              </button>
             </div>
           </div>
         </div>
-        {notes.map(note => {
-          const [key, details] = note;
-          return (
-            <Note
-              key={key}
-              noteId={key}
-              note={details}
-              createNote={this.createNote}
-              handleChange={this.handleChange}
-            />
-          );
-        })}
+        <div className="row">
+          {notes.map(note => {
+            const [key, details] = note;
+            return (
+              <div className="col-md-6 note-preview-wrapper" key={key}>
+                <Link to={`/note/${key}`}>
+                  <div className="note-preview">{details.text}</div>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
