@@ -1,35 +1,71 @@
 import React, { Component } from 'react';
-// import RichTextEditor from 'react-rte';
+import RichTextEditor from 'react-rte';
 // import { Editor, EditorState } from 'draft-js';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import { EditorState } from 'draft-js';
+// import { Editor } from 'react-draft-wysiwyg';
 
 import base from '../base';
 
 class Note extends Component {
   state = {
     note: {
+      text: ''
       // text: EditorState.createEmpty()
-      text: EditorState.createEmpty()
-    }
+    },
+    editorState: RichTextEditor.createEmptyValue()
   };
 
-  onChange = value => {
-    debugger
-    console.log(value);
-    const { note } = this.state;
-    note.text = value;
-    this.setState({ note });
+  onChange = editorState => {
+    this.setState({
+      editorState,
+      note: {
+        text: editorState.toString('markdown')
+      }
+    });
   };
 
-  // componentDidMount() {
-  //   const { id } = this.props.match.params;
-  //   this.ref = base.syncState(`/notes/${id}`, {
-  //     context: this,
-  //     state: 'note'
-  //   });
-  // }
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.ref = base.syncState(`/notes/${id}`, {
+      context: this,
+      state: 'note',
+      then() {
+        const { text } = this.state.note;
+        this.setState({
+          editorState: RichTextEditor.createValueFromString(text, 'markdown')
+        });
+      }
+    });
+
+    base.listenTo(`/notes/${id}`, {
+      context: this,
+      then(note) {
+        console.log(note.text, this.state.note.text);
+        const { text } = note;
+        const { editorState } = this.state;
+        editorState.setContentFromString(text, 'markdown');
+        // this.setState({
+        //   editorState: editorState.setContentFromString(text, 'markdown')
+        //   // editorState: RichTextEditor.createValueFromString(text, 'markdown')
+        // });
+      }
+    });
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    // debugger
+    // console.log(nextState);
+    // const { text } = nextState.note;
+    // const currentText = this.state.note.text;
+    // // console.log(text, currentText);
+    // // // only update editor if new text is different
+    // if (text !== currentText) {
+    //   const { editorState } = this.state;
+    //   // this.setState({
+    //   //   editorState: editorState.setContentFromString(text, 'markdown')
+    //   // });
+    // }
+  }
 
   // handleChange = input => {
   //   const { note } = this.state;
@@ -68,21 +104,21 @@ class Note extends Component {
                 rows="4"
                 onChange={input => this.handleChange(input)}
               /> */}
-              {/* <RichTextEditor
-                value={this.state.note.text}
+              <RichTextEditor
+                value={this.state.editorState}
                 onChange={this.onChange}
-              /> */}
+              />
               {/* <Editor
                 editorState={note.text}
                 onChange={this.onChange}
               /> */}
-              <Editor
+              {/* <Editor
                 editorState={note.text}
                 toolbarClassName="toolbarClassName"
                 wrapperClassName="wrapperClassName"
                 editorClassName="editorClassName"
                 onEditorStateChange={this.onChange}
-              />
+              /> */}
             </div>
           </div>
         </div>
