@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import base from './base';
 import Note from './components/Note';
+import NewNote from './components/NewNote';
 import netlifyIdentity from 'netlify-identity-widget';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -47,7 +48,7 @@ class Root extends Component {
               <App user={this.state.user} logout={this.logout} />
             )}
           />
-          <Route path="/note/:id" render={props => <Note {...props} />} />
+          <Route path="/note/:id" render={props => <NewNote {...props} />} />
           <Route
             exact
             path="/login"

@@ -5,6 +5,7 @@
   "dependencies": {
     "draft-js": "^0.10.5",
     "netlify-identity-widget": "^1.4.11",
+    "pell": "^1.0.4",
     "puid": "^1.0.7",
     "re-base": "2.2.0",
     "react": "^16.3.2",
@@ -13,7 +14,8 @@
     "react-markdown": "^3.3.0",
     "react-router-dom": "^4.2.2",
     "react-rte": "^0.16.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "turndown": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

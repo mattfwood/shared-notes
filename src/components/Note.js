@@ -30,7 +30,7 @@ class Note extends Component {
       context: this,
       state: 'note',
       then() {
-        debugger
+        // debugger
         const { text } = this.state.note;
         console.log(text);
         this.setState({
