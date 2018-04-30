@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import base from './base';
 import './App.css';
@@ -48,6 +48,10 @@ class App extends Component {
 
   render() {
     const notes = Object.entries(this.state.notes);
+    if (!this.props.user) {
+      return <Redirect to='login' />
+    }
+
     return (
       <div className="App container">
         <div className="row">

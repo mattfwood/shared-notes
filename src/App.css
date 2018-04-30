@@ -19,3 +19,8 @@
   text-decoration: none !important;
   color: #222 !important;
 }
+
+/* override netlify modal to make it look like a normal form */
+.modalContainer:before {
+  background-color: transparent !important;
+}

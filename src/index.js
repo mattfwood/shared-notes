@@ -15,9 +15,9 @@ class Root extends Component {
     user: null,
   };
 
-  loginUser = user => {
+  setUser = user => {
     console.log(user);
-    this.setState(user);
+    this.setState({ user });
   };
 
   logout = () => {
@@ -49,7 +49,7 @@ class Root extends Component {
             path="/login"
             render={props => (
               <LoginPage
-                loginUser={this.loginUser}
+                setUser={this.setUser}
                 user={this.state.user}
                 {...props}
               />
