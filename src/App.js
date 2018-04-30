@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import base from './base';
 import './App.css';
 
@@ -67,7 +68,9 @@ class App extends Component {
             return (
               <div className="col-md-6 note-preview-wrapper" key={key}>
                 <Link to={`/note/${key}`}>
-                  <div className="note-preview">{details.text}</div>
+                  <div className="note-preview">
+                    <ReactMarkdown source={details.text} />
+                  </div>
                 </Link>
               </div>
             );

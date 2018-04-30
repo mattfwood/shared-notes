@@ -30,7 +30,9 @@ class Note extends Component {
       context: this,
       state: 'note',
       then() {
+        debugger
         const { text } = this.state.note;
+        console.log(text);
         this.setState({
           editorState: RichTextEditor.createValueFromString(text, 'markdown')
         });
