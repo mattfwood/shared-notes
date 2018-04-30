@@ -42,56 +42,45 @@ class Note extends Component {
       then(note) {
         console.log(note.text, this.state.note.text);
         const { text } = note;
+        const currentText = this.state.note.text;
         const { editorState } = this.state;
-        editorState.setContentFromString(text, 'markdown');
-        // this.setState({
-        //   editorState: editorState.setContentFromString(text, 'markdown')
-        //   // editorState: RichTextEditor.createValueFromString(text, 'markdown')
-        // });
+        if (text === currentText) {
+          this.setState({
+            editorState: editorState.setContentFromString(text, 'markdown')
+          });
+        }
       }
     });
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // debugger
-    // console.log(nextState);
-    // const { text } = nextState.note;
-    // const currentText = this.state.note.text;
-    // // console.log(text, currentText);
-    // // // only update editor if new text is different
-    // if (text !== currentText) {
-    //   const { editorState } = this.state;
-    //   // this.setState({
-    //   //   editorState: editorState.setContentFromString(text, 'markdown')
-    //   // });
-    // }
-  }
-
-  // handleChange = input => {
-  //   const { note } = this.state;
-  //   note.text = input.target.value;
-  //   this.setState({ note });
-  // };
-
-  // onChange = value => {
-  //   // debugger
-  //   // console.log(value);
-  //   // const { note } = this.state;
-  //   // note.text = value.toString('markdown');
-  //   // console.log(note);
-  //   // this.setState({ note });
-  //   // if (this.props.onChange) {
-  //   //   console.log(value);
-  //   //   // Send the changes up to the parent component as an HTML string.
-  //   //   // This is here to demonstrate using `.toString()` but in a real app it
-  //   //   // would be better to avoid generating a string on each change.
-  //   //   // debugger
-  //   //   // this.props.onChange(value.toString('markdown'));
-  //   // }
-  // };
-
   render() {
     const { note } = this.state;
+
+    // const toolbarConfig = {
+    //   // Optionally specify the groups to display (displayed in the order listed).
+    //   display: [
+    //     'INLINE_STYLE_BUTTONS',
+    //     'BLOCK_TYPE_BUTTONS',
+    //     'LINK_BUTTONS',
+    //     'BLOCK_TYPE_DROPDOWN',
+    //     'HISTORY_BUTTONS'
+    //   ],
+    //   INLINE_STYLE_BUTTONS: [
+    //     { label: 'Bold', style: 'BOLD', className: 'custom-css-class' },
+    //     { label: 'Italic', style: 'ITALIC' },
+    //     { label: 'Underline', style: 'UNDERLINE' }
+    //   ],
+    //   BLOCK_TYPE_DROPDOWN: [
+    //     { label: 'Normal', style: 'unstyled' },
+    //     { label: 'Heading Large', style: 'header-one' },
+    //     { label: 'Heading Medium', style: 'header-two' },
+    //     { label: 'Heading Small', style: 'header-three' }
+    //   ],
+    //   BLOCK_TYPE_BUTTONS: [
+    //     { label: 'UL', style: 'unordered-list-item' },
+    //     { label: 'OL', style: 'ordered-list-item' }
+    //   ]
+    // };
     return (
       <div className="container">
         <div className="row">
