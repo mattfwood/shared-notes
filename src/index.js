@@ -6,14 +6,23 @@ import './index.css';
 import App from './App';
 import base from './base';
 import Note from './components/Note';
+import netlifyIdentity from 'netlify-identity-widget';
 import registerServiceWorker from './registerServiceWorker';
 
 import LoginPage from './views/LoginPage';
 
 class Root extends Component {
   state = {
-    user: null,
+    user: null
   };
+
+  componentDidMount() {
+    netlifyIdentity.init();
+    const user = netlifyIdentity.currentUser();
+    if (user) {
+      this.setState({ user });
+    }
+  }
 
   setUser = user => {
     console.log(user);
@@ -38,12 +47,7 @@ class Root extends Component {
               <App user={this.state.user} logout={this.logout} />
             )}
           />
-          <Route 
-            path="/note/:id"
-            render={props => (
-              <Note {...props} />
-            )}
-          />
+          <Route path="/note/:id" render={props => <Note {...props} />} />
           <Route
             exact
             path="/login"

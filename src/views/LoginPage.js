@@ -8,7 +8,7 @@ import netlifyIdentity from 'netlify-identity-widget';
 class LoginPage extends Component {
   static propTypes = {
     setUser: PropTypes.func.isRequired
-  }
+  };
 
   constructor() {
     super();
@@ -18,20 +18,17 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    // base.onAuth(user => {
-    //   if (user) {
-    //     this.authHandler(null, { user });
-    //     console.log(user);
-    //   }
-    // });
-    netlifyIdentity.init();
-    netlifyIdentity.open();
+    // const user = netlifyIdentity.currentUser();
+    if (!this.props.user) {
+      // netlifyIdentity.init();
+      netlifyIdentity.open();
 
-    netlifyIdentity.on('login', user => {
-      console.log(user);
-      this.props.setUser(user);
-      netlifyIdentity.close();
-    });
+      netlifyIdentity.on('login', user => {
+        console.log(user);
+        this.props.setUser(user);
+        netlifyIdentity.close();
+      });
+    }
   }
 
   // authenticate(provider) {
